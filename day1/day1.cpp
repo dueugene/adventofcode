@@ -9,7 +9,6 @@ int findTwoNums(const vector<int>&, int, int);
 int findThreeNums(const vector<int>&, int, int);
 
 int main() {
-  vector<bool> found(2021, false);
   vector<int> input_nums;
   ifstream input;
   input.open("input.txt");
