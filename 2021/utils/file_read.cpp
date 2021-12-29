@@ -14,3 +14,13 @@ std::vector<std::string> read_input(std::string filename) {
     
     return result;
 }
+
+std::string read_single_line(std::string filename) {
+    std::ifstream input;
+    input.open(filename);
+    std::string line;
+    getline(input, line);
+    input.close();
+
+    return line;
+}
