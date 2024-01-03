@@ -13,7 +13,6 @@
 
 using namespace std;
 
-using ulong = unsigned long long;
 
 ulong calc_finish(const unordered_map<string, pair<string, string>>& mapping, const string& sequence, string curr) {
     ulong count = 0;
@@ -80,13 +79,13 @@ int main(int argc, char** argv) {
         cout << p.first << " " << p.second.first << " " << p.second.second << endl;
     }
     for (auto p : mapping2) {
-        cout << p.first << ": "; 
+        cout << p.first << ": ";
         for (auto k : p.second) {
             cout << k.first << "," << k.second << " ";
         }
         cout << endl;
     }
-    
+
     ulong part1 = 0;
     string curr = "AAA";
     int ind = 0;
@@ -107,7 +106,7 @@ int main(int argc, char** argv) {
     for (auto p : starting_a) {
         cout << p << ": " << calc_finish(mapping, sequence, p) << endl;
     }
-    
+
 
     // part 1
     cout << "part1: " << part1 << endl;

@@ -9,7 +9,6 @@ using namespace std;
 
 template <typename T>
 using Matrix = vector<vector<T>>;
-using ulong = unsigned long long;
 
 int main(int argc, char** argv) {
     // this will allow different input files to be passed
@@ -41,7 +40,7 @@ int main(int argc, char** argv) {
         data.push_back(nums);
         big_race.push_back(a);
     }
-    
+
     ulong part1 = 0;
     vector<ulong> result;
     for (int j = 0; j < data[0].size(); j++) {

@@ -15,11 +15,10 @@ using namespace std;
 
 template <typename T>
 using Matrix = vector<vector<T>>;
-using ulong = unsigned long long;
 
 struct Range {
     Range (ulong beg, ulong range) {
-        
+
     }
 };
 
@@ -88,10 +87,10 @@ int main(int argc, char** argv) {
                 a.push_back(b);
             }
             maps.push_back(Mapping(temp, a));
-        } 
+        }
     }
     input.close();
-    
+
     ulong part1 = 0;
     part1 = ~part1;
     for (ulong& seed : seeds) {

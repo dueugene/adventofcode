@@ -18,7 +18,6 @@ using namespace std;
 
 template <typename T>
 using Matrix = vector<vector<T>>;
-using ulong = unsigned long long;
 using p2d_int = Point2d<int>;
 
 
@@ -95,7 +94,7 @@ public:
     int find_enclosed_tiles() {
         // travel loop, and count islands to the "right" of the loop
         // we only need to consider tiles '|' and '-'
-        // we need to consider the direction we're travelling 
+        // we need to consider the direction we're travelling
         // '|' and up, to the right is (1, 0)
         // '|' and down, to the right is(-1, 0)
         // '-' and right, to the right is (0, 1)

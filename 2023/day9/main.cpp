@@ -6,7 +6,6 @@
 
 using namespace std;
 
-using ulong = unsigned long long;
 
 long long int extrapolate(vector<long long int>& input) {
     // for (auto p : input) {
@@ -52,7 +51,7 @@ int main(int argc, char** argv) {
         input_data.push_back(b);
     }
 
-    
+
     long long int part1 = 0;
     for (auto& l : input_data) {
         part1 += extrapolate(l);

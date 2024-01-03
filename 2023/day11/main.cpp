@@ -9,7 +9,6 @@ using namespace std;
 
 template <typename T>
 using Matrix = vector<vector<T>>;
-using ulong = unsigned long long;
 
 class ObservationMap {
 public:
@@ -110,7 +109,7 @@ int main(int argc, char** argv) {
 
     // read the input file
     Matrix<char> input_data = input_reader::read_as_matrix(filename);
-    
+
     ObservationMap galaxy_map(input_data);
     galaxy_map.reset();
     galaxy_map.expand_galaxies(2);

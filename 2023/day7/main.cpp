@@ -6,7 +6,6 @@
 
 using namespace std;
 
-using ulong = unsigned long long;
 
 enum TYPE{HIGH, ONE_PAIR, TWO_PAIR, THREE_KIND, FULL_HOUSE, FOUR_KIND, FIVE_KIND};
 class Hand {
@@ -149,7 +148,7 @@ int main(int argc, char** argv) {
         hands.push_back(Hand(a, num));
     }
     input.close();
-    
+
     ulong part1 = 0;
     card_ranking['A'] = 13;
     card_ranking['K'] = 12;
