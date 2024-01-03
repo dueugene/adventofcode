@@ -1,14 +1,15 @@
 #include <ostream>
 
+template <typename T>
 struct Point2d {
-    Point2d(int x_in, int y_in) : x_(x_in), y_(y_in) {
+    Point2d(T x_in, T y_in) : x_(x_in), y_(y_in) {
 
     }
     Point2d() {
 
     }
-    int x_;
-    int y_;
+    T x_;
+    T y_;
     bool operator<=(const Point2d& other) const {
         return this->x_ <= other.x_ && this->y_ <= other.y_;
     }
@@ -36,19 +37,22 @@ struct Point2d {
         result.y_ -= other.y_;
         return result;
     }
-    friend std::ostream& operator<<(std::ostream& os, const Point2d& other);
+    template <typename B>
+    friend std::ostream& operator<<(std::ostream& os, const Point2d<B>& other);
 };
-std::ostream& operator<<(std::ostream& os, const Point2d& other) {
+
+template <typename B>
+std::ostream& operator<<(std::ostream& os, const Point2d<B>& other) {
     os << "(" << other.x_ << "," << other.y_ << ")"; // endl;
     return os;
 }
 
 namespace std {
-template <>
-struct hash<Point2d> {
-  auto operator()(const Point2d &point) const -> size_t {
-    const int& a = point.x_;
-    const int& b = point.y_;
+template <typename T>
+struct hash<Point2d<T>> {
+  auto operator()(const Point2d<T> &point) const -> size_t {
+    const T& a = point.x_;
+    const T& b = point.y_;
     return a >= b ? a * a + a + b : a + b * b;
   }
 };

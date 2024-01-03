@@ -19,8 +19,7 @@ using namespace std;
 template <typename T>
 using Matrix = vector<vector<T>>;
 using ulong = unsigned long long;
-
-
+using p2d_int = Point2d<int>;
 
 
 class PipeMap {
@@ -29,11 +28,11 @@ public:
         n_ = grid_.size();
         m_ = grid_[0].size();
         find_s();
-        Point2d left(-1, 0);
-        Point2d right(1, 0);
-        Point2d above(0, -1);
-        Point2d below(0, 1);
-        key_types_ = vector<unordered_set<Point2d>>(255);
+        p2d_int left(-1, 0);
+        p2d_int right(1, 0);
+        p2d_int above(0, -1);
+        p2d_int below(0, 1);
+        key_types_ = vector<unordered_set<p2d_int>>(255);
         key_types_['|'].insert({above, below}); // is a vertical pipe connecting north and south.
         key_types_['-'].insert({left, right}); // is a horizontal pipe connecting east and west.
         key_types_['L'].insert({above, right}); // is a 90-degree bend connecting north and east.
@@ -44,10 +43,10 @@ public:
     }
 
     int find_longest_loop() {
-        queue<Point2d> q;
-        unordered_set<Point2d> visited;
-        list<Point2d> dir1;
-        list<Point2d> dir2;
+        queue<p2d_int> q;
+        unordered_set<p2d_int> visited;
+        list<p2d_int> dir1;
+        list<p2d_int> dir2;
         q.push(s_ind_);
         while (!q.empty()) {
             int k = q.size();
@@ -55,7 +54,7 @@ public:
                 cout << "WARNING: ABOVE 2" << endl;
             }
             while (k--) {
-                Point2d curr = q.front();
+                p2d_int curr = q.front();
                 q.pop();
                 // cout << curr << endl;
                 visited.insert(curr);
@@ -102,24 +101,24 @@ public:
         // '-' and right, to the right is (0, 1)
         // '-' and left, to the right is (0, -1)
         // note: I lied, I need to check F, J, 7, and L as well
-        Point2d prev = circular_path_.front();
+        p2d_int prev = circular_path_.front();
         for (const auto& p : circular_path_) {
-            Point2d dir = p - prev;
-            Point2d test_point;
+            p2d_int dir = p - prev;
+            p2d_int test_point;
             switch (grid_[p.y_][p.x_]) {
             case '|':
                 if (dir.y_ == 1) {
-                    test_point = p + Point2d(-1, 0);
+                    test_point = p + p2d_int(-1, 0);
                 } else {
-                    test_point = p + Point2d(1, 0);
+                    test_point = p + p2d_int(1, 0);
                 }
                 check_and_fill_island(test_point, 'I');
                 break;
             case '-':
                 if (dir.x_ == 1) {
-                    test_point = p + Point2d(0, 1);
+                    test_point = p + p2d_int(0, 1);
                 } else {
-                    test_point = p + Point2d(0, -1);
+                    test_point = p + p2d_int(0, -1);
                 }
                 check_and_fill_island(test_point, 'I');
                 break;
@@ -127,9 +126,9 @@ public:
                 if (dir.y_ == -1) {
 
                 } else {
-                    test_point = p + Point2d(-1, 0);
+                    test_point = p + p2d_int(-1, 0);
                     check_and_fill_island(test_point, 'I');
-                    test_point = p + Point2d(0, -1);
+                    test_point = p + p2d_int(0, -1);
                     check_and_fill_island(test_point, 'I');
 
                 }
@@ -138,9 +137,9 @@ public:
                 if (dir.x_ == 1) {
 
                 } else {
-                    test_point = p + Point2d(1, 0);
+                    test_point = p + p2d_int(1, 0);
                     check_and_fill_island(test_point, 'I');
-                    test_point = p + Point2d(0, -1);
+                    test_point = p + p2d_int(0, -1);
                     check_and_fill_island(test_point, 'I');
                 }
                 break;
@@ -148,9 +147,9 @@ public:
                 if (dir.x_ == -1) {
 
                 } else {
-                    test_point = p + Point2d(-1, 0);
+                    test_point = p + p2d_int(-1, 0);
                     check_and_fill_island(test_point, 'I');
-                    test_point = p + Point2d(0, 1);
+                    test_point = p + p2d_int(0, 1);
                     check_and_fill_island(test_point, 'I');
                 }
                 break;
@@ -158,9 +157,9 @@ public:
                 if (dir.y_ == 1) {
 
                 } else {
-                    test_point = p + Point2d(1, 0);
+                    test_point = p + p2d_int(1, 0);
                     check_and_fill_island(test_point, 'I');
-                    test_point = p + Point2d(0, 1);
+                    test_point = p + p2d_int(0, 1);
                     check_and_fill_island(test_point, 'I');
                 }
                 break;
@@ -196,7 +195,7 @@ public:
         return inner_count;
     }
 private:
-    void check_and_fill_island(const Point2d& p, char input) {
+    void check_and_fill_island(const p2d_int& p, char input) {
         if (is_valid(p) && grid_[p.y_][p.x_] == '.') {
             grid_[p.y_][p.x_] = 'S';
             for (auto next : get_neighbors(p)) {
@@ -207,10 +206,10 @@ private:
             return;
         }
     }
-    void clean_unused_pipes(const unordered_set<Point2d>& points) {
+    void clean_unused_pipes(const unordered_set<p2d_int>& points) {
         for (int i = 0; i < n_; i++) {
             for (int j = 0; j < m_; j++) {
-                if (points.find(Point2d(j, i)) == points.end()) {
+                if (points.find(p2d_int(j, i)) == points.end()) {
                     grid_[i][j] = '.';
                 }
             }
@@ -220,28 +219,28 @@ private:
         for (int i = 0; i < n_; i++) {
             for (int j = 0; j < m_; j++) {
                 if (grid_[i][j] == 'S') {
-                    s_ind_ = Point2d(j, i);
+                    s_ind_ = p2d_int(j, i);
                     return;
                 }
             }
         }
     }
-    unordered_set<Point2d> get_neighbors(const Point2d& p) const {
-        unordered_set<Point2d> result;
+    unordered_set<p2d_int> get_neighbors(const p2d_int& p) const {
+        unordered_set<p2d_int> result;
         for (auto k : key_types_[grid_[p.y_][p.x_]]) {
             result.insert(p + k);
         }
         return result;
     }
-    bool is_valid(const Point2d& p) const {
-        return p >= Point2d(0, 0) && p < Point2d(m_, n_);
+    bool is_valid(const p2d_int& p) const {
+        return p >= p2d_int(0, 0) && p < p2d_int(m_, n_);
     }
     Matrix<char> grid_;
     int n_;
     int m_;
-    Point2d s_ind_;
-    vector<unordered_set<Point2d>> key_types_;
-    list<Point2d> circular_path_;
+    p2d_int s_ind_;
+    vector<unordered_set<p2d_int>> key_types_;
+    list<p2d_int> circular_path_;
 };
 
 int main(int argc, char** argv) {
@@ -255,9 +254,6 @@ int main(int argc, char** argv) {
     }
 
     // read the input file
-    ifstream input;
-    input.open(filename);
-    string a;
     Matrix<char> input_data = input_reader::read_as_matrix(filename);
     PipeMap pipe_map(input_data);
 

@@ -12,9 +12,12 @@
 
 using namespace std;
 
-unordered_set<Point2d> get_neighbors(const Point2d& p, const Point2d& ul, const Point2d& br) {
-    unordered_set<Point2d> result;
-    Point2d cand(p);
+using p2d_int = Point2d<int>;
+
+
+unordered_set<p2d_int> get_neighbors(const p2d_int& p, const p2d_int& ul, const p2d_int& br) {
+    unordered_set<p2d_int> result;
+    p2d_int cand(p);
     int& a = cand.x_;
     int& b = cand.y_;
     for (int i = -1; i <= 1; i++) {
@@ -33,8 +36,8 @@ unordered_set<Point2d> get_neighbors(const Point2d& p, const Point2d& ul, const 
 class Engine {
 public:
     Engine(const vector<string>& grid_input) : grid_(grid_input) {
-        ul_ = Point2d(0, 0);
-        br_ = Point2d(grid_.size()-1, grid_[0].size()-1);
+        ul_ = p2d_int(0, 0);
+        br_ = p2d_int(grid_.size()-1, grid_[0].size()-1);
         for (int i = 0; i < grid_.size(); i++) {
             for (int j = 0; j < grid_[0].size(); j++) {
                 char c = grid_[i][j];
@@ -49,13 +52,13 @@ public:
                         c = grid_[i][j];
                     }
                     j--;
-                    part_numbers_.insert({Point2d(i, k), stoi(num_builder)});
+                    part_numbers_.insert({p2d_int(i, k), stoi(num_builder)});
                     // cout << num_builder << endl;
                 } else {
                     // cout << i << " " << j << " " << c << endl;
-                    symbols_.insert({Point2d(i, j), c});
+                    symbols_.insert({p2d_int(i, j), c});
                     if (c == '*') {
-                        gears_.insert(Point2d(i, j));
+                        gears_.insert(p2d_int(i, j));
 
                     }
                 }
@@ -63,10 +66,10 @@ public:
         }
     }
 
-    unordered_set<Point2d> get_adjacent_points(const Point2d& p, int n) {
-        unordered_set<Point2d> result;
+    unordered_set<p2d_int> get_adjacent_points(const p2d_int& p, int n) {
+        unordered_set<p2d_int> result;
         int num = n;
-        Point2d point = p;
+        p2d_int point = p;
         while (num) {
             result.merge(get_neighbors(point, ul_, br_));
             num /= 10;
@@ -105,13 +108,13 @@ public:
         return result;
     }
 private:
-    Point2d ul_;
-    Point2d br_;
+    p2d_int ul_;
+    p2d_int br_;
     vector<string> grid_;
-    unordered_map<Point2d, int> part_numbers_;
-    unordered_map<Point2d, char> symbols_;
-    unordered_set<Point2d> gears_;
-    unordered_map<Point2d, vector<int>> gear_to_part_;
+    unordered_map<p2d_int, int> part_numbers_;
+    unordered_map<p2d_int, char> symbols_;
+    unordered_set<p2d_int> gears_;
+    unordered_map<p2d_int, vector<int>> gear_to_part_;
 };
 
 int main(int argc, char** argv) {
