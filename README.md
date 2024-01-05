@@ -1,14 +1,18 @@
-# adventofcode 
+# adventofcode
 
-my code for solve the [advent of code](https://adventofcode.com/) challenge 2020.
+my code for solve the annual [advent of code](https://adventofcode.com/).  
+my results:  
+2020: 45  
+2021: 42  
+2022:  8  
+2023: 46  
 
 ## to run
-on linux for dayXX where XX represents the day:
+### 2023
+mine has been tested on a linux machine with gcc 9.4.0:  
+for dayXX where XX represents the day:  
 ```bash
 cd dayXX
-g++ -std=c++11 main.cpp -o main
-./main input.txt
+g++ --std=c++2a -I../../utils/ main.cpp -o main
+./main sample.txt
 ```
-
-
-
