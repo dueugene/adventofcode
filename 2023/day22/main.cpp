@@ -29,9 +29,7 @@ struct Brick {
         }
         return result;
     }
-    bool operator==(const Brick& other) const {
-        return p0_ == other.p0_ && p1_ == other.p1_;
-    }
+    bool operator==(const Brick& other) const { return p0_ == other.p0_ && p1_ == other.p1_; }
 
     Point3d p0_;
     Point3d p1_;
@@ -55,9 +53,7 @@ class BrickField {
     BrickField(const vector<Brick>& bricks) : bricks_(bricks) {}
 
     void settle_bricks() {
-        sort(
-            bricks_.begin(), bricks_.end(),
-            [](const Brick& a, const Brick& b) { return a.p0_.z_ < b.p0_.z_; });
+        sort(bricks_.begin(), bricks_.end(), [](const Brick& a, const Brick& b) { return a.p0_.z_ < b.p0_.z_; });
         for (auto brick : bricks_) {
             cout << brick.p0_ << " " << brick.p1_ << endl;
         }
@@ -112,8 +108,7 @@ class BrickField {
                 }
             }
             if (disintegratable) {
-                cout << " " << i << " " << bricks_[i].p0_ << " "
-                     << bricks_[i].p1_ << endl;
+                cout << " " << i << " " << bricks_[i].p0_ << " " << bricks_[i].p1_ << endl;
                 result++;
             }
         }
